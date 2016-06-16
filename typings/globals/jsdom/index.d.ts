@@ -2,7 +2,8 @@
 // Source: https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/56295f5058cac7ae458540423c50ac2dcf9fc711/jsdom/jsdom.d.ts
 declare module "jsdom" {
 
-    import EventEmitter = NodeJS.EventEmitter;
+    import {EventEmitter} from 'events';
+		import {JQuery} from 'jquery';
 
 	/**
 	 * The do-what-I-mean API.

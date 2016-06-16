@@ -16,7 +16,6 @@ export class NodeJsDom implements IDom {
 
   }
   adoptNode(node: Node): Node{
-
   }
   createElement(tagName: string): Element{
 
@@ -63,8 +62,7 @@ export class NodeJsDom implements IDom {
   removeNode(node: Node, parentNode?: Node): void{
 
   }
-  injectStyles(styles: string, destination?: Element, prepend?:boolean): Node{
-    
+  injectStyles(styles: string, destination?: Element, prepend?:boolean): Node{    
   }
 }
 

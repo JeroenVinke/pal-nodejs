@@ -21,6 +21,7 @@
     "test": "gulp test"
   },
   "dependencies": {
-    "aurelia-pal" : "*"
+    "aurelia-pal": "*",
+    "jsdom": "^9.2.1"
   }
 }

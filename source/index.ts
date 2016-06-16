@@ -4,6 +4,11 @@ import {IPlatform} from './platform';
 import {NodeJsPlatform} from './nodejs-platform';
 import {NodeJsDom} from './nodejs-dom';
 
+import {JsDom} from 'jsdom';
+
+
+
+
 /**
 * The singleton instance of the Platform API.
 */
