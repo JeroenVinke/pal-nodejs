@@ -4,6 +4,10 @@
   "author": "Meirion Hughes <crakinshot@yahoo.com>",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aurelia/pal-nodejs"
+  },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-jasmine": "^2.3.0",

@@ -1,12 +1,13 @@
 import {IPlatform} from './platform';
-import {Performance} 
+import {IPerformance} from './performance';
+import {IGlobal} from './global';
 
 export class NodeJsPlatform implements IPlatform
 {
-  /**
-  * The runtime environment's global.
-  */
-  global: any;
+  constructor(public global:IGlobal)
+  {
+  }
+
   /**
   * A function wich does nothing.
   */
@@ -28,7 +29,9 @@ export class NodeJsPlatform implements IPlatform
   * @param callback The function to call.
   * @return A long integer value, the request id, that uniquely identifies the entry in the callback list.
   */
-  requestAnimationFrame(callback: (animationFrameStart: number) => void): number;
+  requestAnimationFrame(callback: (animationFrameStart: number) => void): number{
+    
+  }
   /**
   * The runtime's XMLHttpRequest API.
   */

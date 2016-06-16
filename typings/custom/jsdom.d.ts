@@ -3,8 +3,7 @@
 declare module "jsdom" {
 
     import {EventEmitter} from 'events';
-		import {JQuery} from 'jquery';
-
+	
 	/**
 	 * The do-what-I-mean API.
 	 *
@@ -64,7 +63,7 @@ declare module "jsdom" {
 	export function nodeLocation(node: Node): any;
 	export function reconfigureWindow(window: Window, newProps: WindowProperties): void;
 	
-	export function jQueryify(window: Window, jqueryUrl: string, callback: (window: Window, jquery: JQuery) => any): void;
+	//export function jQueryify(window: Window, jqueryUrl: string, callback: (window: Window, jquery: JQuery) => any): void;
 	
 	export var debugMode: boolean;
 	
