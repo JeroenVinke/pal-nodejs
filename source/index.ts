@@ -25,17 +25,16 @@ export function initialize(): void {
   //_ensureHTMLTemplateElement();
   //_ensureElementMatches();
   //_ensureClassList();
-  //_ensurePerformance();  
+  //_ensurePerformance();
 
-  var document = jsdom(undefined, {});
-  var window = document.defaultView;
-  
-  var _platform = new NodeJsPlatform(document, window);
-  var _dom = new NodeJsDom(document, window);
+  var global:IGlobal = jsdom(undefined, {}).defaultView;
+
+  var _platform = new NodeJsPlatform(global);
+  var _dom = new NodeJsDom(global);
 
   initializePAL((platform, feature, dom) => {
     Object.assign(platform, _platform);
-    Object.assign(feature, _FEATURE);
+    //Object.assign(feature, _FEATURE);
     Object.assign(dom, _dom);
 
     (function(global) {

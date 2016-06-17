@@ -1,22 +1,29 @@
 import {IDom} from './dom';
 import {IGlobal} from './global';
+import {NodeJsMutationSource} from './nodejs-mutation-source';
+import {NodeJsMutationObserver} from './nodejs-mutation-observer';
 
 /**
 * Represents the core APIs of the DOM.
 */
 export class NodeJsDom implements IDom {
 
+  private mutationSource: NodeJsMutationSource;
+
   constructor(public global: IGlobal) {
 
     this.Element = (<any>global).Element;
     this.SVGElement = (<any>global).SVGElement;
+
+    this.mutationSource = new NodeJsMutationSource();
   }
 
-  Element: Element;
-  SVGElement: SVGElement;
+  Element: { new (): Element };
+  SVGElement: { new (): SVGElement };
   boundary: string = 'aurelia-dom-boundary';
   title: string = "";
-  activeElement: Element;
+  activeElement: Element = null;
+
   addEventListener(eventName: string, callback: EventListener, capture: boolean): void {
     return this.global.document.addEventListener(eventName, callback, capture);
   }
@@ -38,11 +45,11 @@ export class NodeJsDom implements IDom {
   createDocumentFragment(): DocumentFragment {
     return this.global.document.createDocumentFragment();
   }
-  createMutationObserver(callback: Function): MutationObserver {
-    throw new Error("NotImplementedException");
+  createMutationObserver(callback: (changes: MutationRecord[], instance: MutationObserver) => void): MutationObserver {
+    return new NodeJsMutationObserver(this.mutationSource, callback);
   }
   createCustomEvent(eventType: string, options: Object): CustomEvent {
-    return new (<any>this.global.window).CustomEvent(eventType, options);
+    return new this.global.CustomEvent(eventType, options);
   }
   dispatchEvent(evt: Event): void {
     this.global.window.dispatchEvent(evt);
@@ -56,25 +63,50 @@ export class NodeJsDom implements IDom {
   querySelectorAll(query: string): NodeList {
     return this.global.document.querySelectorAll(query);
   }
-  nextElementSibling(element: Node): Element {
-    //if (element.nextElementSibling) { return element.nextElementSibling; }
-    do { element = element.nextSibling; }
-    while (element && element.nodeType !== 1);
-    return <Element>element;
+  nextElementSibling(element: Element): Element {
+    return element.nextElementSibling;
   }
   createTemplateFromMarkup(markup: string): Element {
-    
+    let parser = document.createElement('div');
+    parser.innerHTML = markup;
+
+    let temp = parser.firstElementChild;
+    if (!temp || temp.nodeName !== 'TEMPLATE') {
+      throw new Error('Template markup must be wrapped in a <template> element e.g. <template> <!-- markup here --> </template>');
+    }
+    return temp;
   }
   appendNode(newNode: Node, parentNode?: Node): void {
-
+    (parentNode || document.body).appendChild(newNode);
   }
   replaceNode(newNode: Node, node: Node, parentNode?: Node): void {
-
+    if (node.parentNode) {
+      node.parentNode.replaceChild(newNode, node);
+    } else {
+      parentNode.replaceChild(newNode, node);
+    }
   }
   removeNode(node: Node, parentNode?: Node): void {
-
+    if (node.parentNode) {
+      node.parentNode.removeChild(node);
+    }
+    else {
+      parentNode.removeChild(node);
+    }
   }
   injectStyles(styles: string, destination?: Element, prepend?: boolean): Node {
+    let node = document.createElement('style');
+    node.innerHTML = styles;
+    node.type = 'text/css';
+
+    destination = destination || document.head;
+
+    if (prepend && destination.childNodes.length > 0) {
+      destination.insertBefore(node, destination.childNodes[0]);
+    } else {
+      destination.appendChild(node);
+    }
+    return node;
   }
 }
 

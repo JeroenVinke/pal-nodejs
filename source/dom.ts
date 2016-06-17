@@ -5,11 +5,12 @@ export interface IDom {
   /**
   * The global DOM Element type.
   */
-  Element: Element;
+  Element: { new (): Element };
+ 
   /**
   * The global DOM SVGElement type.
-  */
-  SVGElement: SVGElement;
+  */ 
+  SVGElement: { new (): SVGElement };
   /**
   * A key representing a DOM boundary.
   */
@@ -70,7 +71,7 @@ export interface IDom {
   * @param callback A callback that will recieve the change records with the mutations.
   * @return A MutationObservere.
   */
-  createMutationObserver(callback: Function): MutationObserver;
+  createMutationObserver(callback:(changes:MutationRecord[], instance:MutationObserver)=>void): MutationObserver;
   /**
   * Creates a new CustomEvent.
   * @param eventType A string representing the event type.

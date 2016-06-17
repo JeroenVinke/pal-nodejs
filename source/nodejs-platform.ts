@@ -3,9 +3,14 @@ import {IPerformance} from './performance';
 import {IGlobal} from './global';
 
 export class NodeJsPlatform implements IPlatform
-{
+{ 
+
   constructor(public global:IGlobal)
   {
+    this.performance = this.global.performance;
+    this.location = this.global.location;
+    this.history = this.global.history;
+    this.XMLHttpRequest = (<any>this.global).XMLHttpRequest
   }
 
   /**
@@ -30,6 +35,7 @@ export class NodeJsPlatform implements IPlatform
   * @return A long integer value, the request id, that uniquely identifies the entry in the callback list.
   */
   requestAnimationFrame(callback: (animationFrameStart: number) => void): number{
+    return 
     
   }
   /**

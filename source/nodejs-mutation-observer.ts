@@ -1,9 +1,13 @@
+import {NodeJsMutationSource} from './nodejs-mutation-source';
+
 //https://developer.mozilla.org/en/docs/Web/API/MutationObserver
 
 export class NodeJsMutationObserver implements MutationObserver
 {
-    constructor(public callback:(changes:MutationRecord[], instance:MutationObserver)=>void )
-    {
+    constructor(
+        source:NodeJsMutationSource,  
+        public callback:(changes:MutationRecord[], instance:MutationObserver)=>void )
+    {        
     }
 
     disconnect(): void{
@@ -20,18 +24,5 @@ export class NodeJsMutationObserver implements MutationObserver
 
     private watch()
     {
-
     }
-}
-
-class NodeJsMutationRecord implements MutationRecord{
-    addedNodes: NodeList;
-    attributeName: string;
-    attributeNamespace: string;
-    nextSibling: Node;
-    oldValue: string;
-    previousSibling: Node;
-    removedNodes: NodeList;
-    target: Node;
-    type: string;
 }

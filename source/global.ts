@@ -1,8 +1,7 @@
-export interface IGlobal
+export interface IGlobal extends Window
 {
-    document:Document;
-    window:Window;
-
-    Element?:Element;
-    SVGElement?:SVGElement;
+    Element?:any;
+    SVGElement?:any;
+    XMLHttpRequest?:any;
+    CustomEvent?:{new(eventType: string, options: Object ):CustomEvent };
 }
