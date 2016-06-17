@@ -1,5 +1,6 @@
 {
   "name": "aurelia-pal-nodejs",
+  "version": "0.0.1",
   "description": "jsdom based implementation of the pal abstraction layer",
   "author": "Meirion Hughes <crakinshot@yahoo.com>",
   "main": "./dist/index.js",
