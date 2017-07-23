@@ -16,7 +16,7 @@ function buildPal() {
     }
     ensurePerformance(global.window);
     ensureMutationObserver(global.window);
-    var platform = new nodejs_platform_1.NodeJsPlatform(global);
+    var platform = new nodejs_platform_1.NodeJsPlatform(global, jsdom);
     var dom = new nodejs_dom_1.NodeJsDom(global);
     var feature = new nodejs_feature_1.NodeJsFeature(global);
     return {
