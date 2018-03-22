@@ -140,7 +140,7 @@ export class MutationObserver {
   private _disposed = false;
   private _notifyListener = null;
 
-  constructor(listener) {
+  constructor(listener, useTimeouts) {
     this._watched = [];
     this._listener = listener;
     this._period = 30;
@@ -245,10 +245,7 @@ export class MutationObserver {
   }
 
   private scheduleMutationCheck(observer) {
-    // Only schedule if there isn't already a timer. 
-    if (!observer._timeout) {
-      observer._timeout = setTimeout(() => this.mutationChecker(observer), this._period);
-    }
+    this.mutationChecker(observer);
   }
 
   private mutationChecker(observer) {

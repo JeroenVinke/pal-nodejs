@@ -59,7 +59,7 @@ export declare class MutationObserver {
     private _timeout;
     private _disposed;
     private _notifyListener;
-    constructor(listener: any);
+    constructor(listener: any, useTimeouts: any);
     observe($target: any, config: any): void;
     takeRecords(): any[];
     disconnect(): void;

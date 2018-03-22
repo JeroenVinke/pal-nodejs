@@ -128,7 +128,7 @@ Util.counter = 1;
 Util.expando = 'mo_id';
 exports.Util = Util;
 class MutationObserver {
-    constructor(listener) {
+    constructor(listener, useTimeouts) {
         this._watched = [];
         this._listener = null;
         this._period = 30;
@@ -221,10 +221,7 @@ class MutationObserver {
         };
     }
     scheduleMutationCheck(observer) {
-        // Only schedule if there isn't already a timer. 
-        if (!observer._timeout) {
-            observer._timeout = setTimeout(() => this.mutationChecker(observer), this._period);
-        }
+        this.mutationChecker(observer);
     }
     mutationChecker(observer) {
         // allow scheduling a new timer. 
